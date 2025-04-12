@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://dkn787sx75783"]
+
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_icwqy"]
+[ext_resource type="Texture2D" uid="uid://e3qq63lqnoc4" path="res://icon.svg" id="1_rm32u"]
+[ext_resource type="Script" path="res://RigidBody2D.gd" id="2_iecia"]
+[ext_resource type="Script" path="res://CharacterBody2D2.gd" id="2_j688x"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_k4om3"]
+friction = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2503"]
+size = Vector2(1172, 20)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hwrll"]
+friction = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xyc80"]
+size = Vector2(1165, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dsol"]
+size = Vector2(20, 234)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1k0wp"]
+size = Vector2(21, 223)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t7p5h"]
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e5iph"]
+radius = 74.5419
+
+[node name="GAME" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_k4om3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(576, 0)
+shape = SubResource("RectangleShape2D_j2503")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(0, 640)
+physics_material_override = SubResource("PhysicsMaterial_hwrll")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(572.5, 0)
+shape = SubResource("RectangleShape2D_xyc80")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_icwqy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 142)
+shape = SubResource("RectangleShape2D_6dsol")
+
+[node name="CharacterBody2D2" type="CharacterBody2D" parent="."]
+position = Vector2(1151, 0)
+motion_mode = 1
+script = ExtResource("2_j688x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2"]
+position = Vector2(-0.5, 138.5)
+shape = SubResource("RectangleShape2D_1k0wp")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(600, 320)
+mass = 0.01
+physics_material_override = SubResource("PhysicsMaterial_t7p5h")
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp_mode = 1
+script = ExtResource("2_iecia")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("1_rm32u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("CircleShape2D_e5iph")
+
+[connection signal="body_exited" from="RigidBody2D" to="RigidBody2D" method="_on_body_exited"]
